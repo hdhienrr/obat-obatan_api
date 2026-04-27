@@ -4,8 +4,14 @@ use App\Http\Controllers\ObatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::middleware('verify.login')->group(function () {
+    Route::get('/obat', [ObatController::class, 'index']);
+    Route::get('/obat/{id}', [ObatController::class, 'show']);
+    Route::middleware('check.role')->group(function () {
+        Route::post('/obat', [ObatController::class, 'store ']);
+        Route::put('/obat/{id}', [ObatController::class, 'update']);
+        Route::delete('/obat/{id}', [ObatController::class, 'destroy']);
+    });
+});
 
-Route::apiResource('/obat', ObatController::class);
+

@@ -10,6 +10,7 @@ Route::middleware('verify.login')->group(function () {
     Route::middleware('check.role')->group(function () {
         Route::post('/obat', [ObatController::class, 'store ']);
         Route::put('/obat/{id}', [ObatController::class, 'update']);
+        Route::patch(' /obat/{id}/stock', [ObatController::class, 'updatestok']);
         Route::delete('/obat/{id}', [ObatController::class, 'destroy']);
     });
 });

@@ -55,5 +55,13 @@ class ObatController extends Controller
 
         return new obatResource(null, 'berhasil', 'Data obat berhasil dihapus');
     }
+    public function updatestok(Request $request, $id)
+    {
+        $obat = Obat::find($id);
+        if(!$obat){
+            return new obatResource(null, 'gaga', 'Data obat tidak ditemukan');
+        }
+        $obat->update(['stock'=> $request->stock]);
+    }
     
 }

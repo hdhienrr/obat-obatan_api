@@ -62,6 +62,6 @@ class ObatController extends Controller
             return new obatResource(null, 'gaga', 'Data obat tidak ditemukan');
         }
         $obat->update(['stock'=> $request->stock]);
+        return new obatResource($obat, 'berhasil', 'Stok obat berhasil diupdate');
     }
-    
 }

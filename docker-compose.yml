@@ -1,0 +1,44 @@
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: obat-app
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/vendor
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - obat-network
+
+  db:
+    image: mysql:8.0
+    container_name: obat-db
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: obat-obatan
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: secret
+    volumes:
+      - obat-db-data:/var/lib/mysql
+    networks:
+      - obat-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+networks:
+  obat-network:
+    driver: bridge
+
+volumes:
+  obat-db-data:

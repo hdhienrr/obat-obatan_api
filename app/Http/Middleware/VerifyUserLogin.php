@@ -27,7 +27,7 @@ class VerifyUserLogin
         }
 
         try {
-            $userServiceUrl = 'http://127.0.0.1:5000';
+            $userServiceUrl = 'http://host.docker.internal:5000';
             // Forward token ke User Service endpoint /is_login
             $response = Http::timeout(5)
                 ->withHeaders([

@@ -1,0 +1,33 @@
+# Multi-stage build untuk Nginx + PHP-FPM
+
+# Stage 1: PHP-FPM
+FROM php:8.2-fpm
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    sqlite3 \
+    libsqlite3-dev \
+    && docker-php-ext-install \
+        pdo_mysql \
+        mbstring \
+        zip \
+        bcmath \
+        pdo_sqlite \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+# Expose PHP-FPM
+EXPOSE 9000
+
+CMD ["php-fpm"]

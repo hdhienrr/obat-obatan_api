@@ -22,3 +22,33 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Docker
+.dockerignore
+.dockerenv
+.dockerconfig.json
+
+# Docker Compose override files (local development)
+docker-compose.override.yml
+docker-compose.local.yml
+docker-compose.dev.yml
+docker-compose.prod.yml
+
+# Docker build artifacts
+Dockerfile.local
+Dockerfile.dev
+Dockerfile.prod
+
+# Docker volumes and data
+/data/
+/volumes/
+/docker-data/
+
+# Docker cache
+.docker-cache/
+.docker-build-cache/
+
+# Docker temp files
+.docker-tmp/
+.docker-temp/
+.docker-logs/
